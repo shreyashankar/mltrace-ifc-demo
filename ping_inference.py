@@ -5,7 +5,9 @@ Sample script to run inference on some dates.
 """
 
 from datetime import timedelta, date
+from pprint import pprint
 
+import json
 import logging
 import requests
 
@@ -23,9 +25,6 @@ if __name__ == "__main__":
     for n in range(7, int((end_date - start_date).days) + 1, 7):
         curr_dt = start_date + timedelta(n)
         curr_dt.strftime("%m/%d/%Y")
-        # command = f'python main.py --mode=inference --start={prev_dt.strftime("%m/%d/%Y")} --end={curr_dt.strftime("%m/%d/%Y")}'
-        # print(command)
-        # subprocess.run(command, shell=True)
 
         # Make command
         req_url = "http://localhost:8001/predict"
@@ -36,6 +35,6 @@ if __name__ == "__main__":
         print(f"Making inference request for {params}")
 
         response = requests.post(req_url, json=params)
-        print(f"Response: {response.json()}")
+        print(f"Response: {json.dumps(response.json(), indent=2)}")
 
         prev_dt = curr_dt
