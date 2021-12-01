@@ -1,7 +1,6 @@
 from components import *
 from flask import Flask, request, jsonify
 
-import logging
 import numpy as np
 import pandas as pd
 
@@ -10,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    data = request.form
+    data = request.get_json() if request.get_json() else request.form
     if not data:
         return jsonify({"error": "No data received"}), 400
     if "start" not in data or "end" not in data:
@@ -20,9 +19,6 @@ def predict():
     end_date = data["end"]
 
     # Run inference on points in that range
-    logging.info(
-        f"Running the train pipeline from {start_date} to {end_date}..."
-    )
 
     # Clean and featurize data
     try:

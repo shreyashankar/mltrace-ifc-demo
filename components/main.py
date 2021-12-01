@@ -75,13 +75,18 @@ def clean_data(
     return clean_df
 
 
-@Featuregen().run(auto_log=True)
+@Featuregen().run(input_vars={"df": "customer_label"}, auto_log=True)
 def featurize_data(
     df: pd.DataFrame, tip_fraction: float = 0.1, imputation_value: float = -1.0
 ) -> pd.DataFrame:
     """
     This function constructs features from the dataframe.
     """
+    # Compute labels for mltrace
+    customer_label = list(
+        ("location_" + df["PULocationID"].astype(str)).unique()
+    )
+
     # Compute pickup features
     pickup_weekday = df.tpep_pickup_datetime.dt.weekday
     pickup_hour = df.tpep_pickup_datetime.dt.hour
