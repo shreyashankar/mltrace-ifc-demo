@@ -83,9 +83,7 @@ def featurize_data(
     This function constructs features from the dataframe.
     """
     # Compute labels for mltrace
-    customer_label = list(
-        ("location_" + df["PULocationID"].astype(str)).unique()
-    )
+    customer_label = list(("user_" + df["PULocationID"].astype(str)).unique())
 
     # Compute pickup features
     pickup_weekday = df.tpep_pickup_datetime.dt.weekday
@@ -213,7 +211,7 @@ def train_model(
     dump(model, "model.joblib")
 
 
-@Inference().run(auto_log=True)
+@Inference().run(auto_log=True, staleness_threshold=30)
 def inference(
     features_df: pd.DataFrame,
     feature_columns: typing.List[str],
