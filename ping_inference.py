@@ -5,6 +5,7 @@ Sample script to run inference on some dates.
 """
 
 from datetime import timedelta, date
+from mltrace import get_labels
 from pprint import pprint
 
 import json
@@ -38,3 +39,7 @@ if __name__ == "__main__":
         print(f"Response: {json.dumps(response.json(), indent=2)}")
 
         prev_dt = curr_dt
+
+    # Collect statistics
+    all_labels = get_labels()
+    print(len(all_labels))

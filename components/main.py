@@ -211,7 +211,7 @@ def train_model(
     dump(model, "model.joblib")
 
 
-@Inference().run(auto_log=True)
+@Inference().run(auto_log=True, staleness_threshold=30)
 def inference(
     features_df: pd.DataFrame,
     feature_columns: typing.List[str],
