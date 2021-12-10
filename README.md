@@ -13,3 +13,17 @@ The purpose of this demo is to demonstrate how we have incorporated information 
 4. Delete user_139 label (used in training)
   * Use 30-second threshold (default is 30 days)
   * “Weekly” inference will throw errors 
+
+## Experiments
+
+* vary number of labels, measure runtime & space
+* vary number of deleted labels, measure runtime & space
+
+* on committing new labels, vary cardinality and measure runtime
+* on propagating through pipeline, vary cardinality and measure runtime
+
+## TODO
+
+* clean up deletion experiment
+* run each experiment many times 
+* put in paper
